@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>Iscrizioni {{ document.titolo }}</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top navbartop">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'form:index' %}">
+                    <b>Compilazione Moduli Online</b></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <p class="navbar-text navbar-title">Iscrizioni "{{ document.titolo }}"</p>
+                <a href="{% url 'form:index' %}"><button type="button" class="btn btn-default navbar-btn navbar-right">
+                    Torna ai documenti</button></a>
+            </div>
+        </nav>
+
+        <div class="jumbotron largejumbo">
+            {% if compiled_docs %}
+                <div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <table><tr>
+                            <td><div class="dropdown">
+                                <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Download
+                                        <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="{% url 'form:export_xlsx' document.id %}">Formato .xlsx</a></li>
+                                    <li><a href="{% url 'form:export_csv' document.id %}">Formato .csv</a></li>
+                                    <li><a href="{% url 'form:export_xls' document.id %}">Formato .xls</a></li>
+                                </ul>
+                            </div></td>
+                            {% if request.user.is_superuser %}
+                                <td><button type="submit" class="btn btn-danger btn-lg">Cancella tutto</button></td>
+                            {% endif %}
+                        </tr></table>
+                    </form>
+                </div>
+
+                <div class="reg">
+                    <ul>
+                        {% for comp_doc in compiled_docs %}
+                            <li><p>{{ comp_doc }}</p></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <p>Nessuna registrazione presente.</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

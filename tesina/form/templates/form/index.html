@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% comment %} Main page of form.
+{% endcomment %}
+{% block head %}
+    <title>Compilazione Moduli Online</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top navbartop">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'form:index' %}">
+                    <b>Compilazione Moduli Online</b></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left form-inline" role="search"
+                      action="{% url 'form:index' %}" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Cerca" title="" name="search"
+                               value="{{ request.GET.search }}" onkeydown="">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-success btn-md search">
+                                <span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </form>
+                {% if not request.user.is_authenticated %}
+                    <a href="{% url 'login' %}"><button type="button" class="btn btn-default navbar-btn navbar-right">
+                        Accesso Staff</button></a>
+                {% else %}
+                    <table class="navbar-right">
+                        <tr>
+                            <td><p class="navbar-text">
+                                Benvenuto/a, {{ request.user.username }}</p></td>
+                            <td><a href="{% url 'logout_view' %}"><button type="button"
+                                class="btn btn-default navbar-btn">Logout</button></a></td>
+                        </tr>
+                    </table>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="jumbotron largejumbo">
+            <table id="tutti">
+                <tr>
+                    {% if request.user.is_authenticated %}
+                        <td class="col-md-11">
+                    {% else %}
+                        <td class="col-md-12">
+                    {% endif %}
+                        {% ifequal request.GET.search None %}
+                            <h2>Tutti i documenti
+                                (pagina {{ documents.number }} di {{ documents.paginator.num_pages }})</h2>
+                        {% else %}
+                            {% ifequal request.GET.search '' %}
+                                <h2>Tutti i documenti
+                                    (pagina {{ documents.number }} di {{ documents.paginator.num_pages }})</h2>
+                            {% else %}
+                                <h2>Ricerca: "{{ request.GET.search }}"
+                                    (pagina {{ documents.number }} di {{ documents.paginator.num_pages }})</h2>
+                            {% endifequal %}
+                        {% endifequal %}
+                    </td>
+
+                    {% if request.user.is_authenticated %}
+                        <td class="col-md-1"><a href="{% url 'form:new' %}">
+                            <button type="button" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-plus">
+                                </span> Nuovo documento</button></a></td>
+                    {% endif %}
+                </tr>
+            </table>
+            <br>
+            <div class="divtutti">
+                {% if documents %}
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                {% ifequal request.GET.order 'nameup' %}
+                                    <a class="order" href="
+                                        {% ifequal request.GET.search None %}
+                                            ?order=namedown
+                                        {% else %}
+                                            ?search={{ request.GET.search }}&order=namedown
+                                        {% endifequal %}
+                                    ">Nome <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
+                                {% else %}
+                                    <a class="order" href="
+                                        {% ifequal request.GET.search None %}
+                                            ?order=nameup
+                                        {% else %}
+                                            ?search={{ request.GET.search }}&order=nameup
+                                        {% endifequal %}
+                                    ">Nome <span class="glyphicon glyphicon-sort-by-alphabet"></span></a>
+                                {% endifequal %}
+                            </th>
+
+                            <th>
+                                {% ifequal request.GET.order 'datadown' %}
+                                    <a class="order" href="
+                                        {% ifequal request.GET.search None %}
+                                            ?order=dataup
+                                        {% else %}
+                                            ?search={{ request.GET.search }}&order=dataup
+                                        {% endifequal %}
+                                    ">Data <span class="glyphicon glyphicon-sort"></span></a>
+                                {% else %}
+                                    <a class="order" href="
+                                        {% ifequal request.GET.search None %}
+                                            ?order=datadown
+                                        {% else %}
+                                            ?search={{ request.GET.search }}&order=datadown
+                                        {% endifequal %}
+                                    ">Data <span class="glyphicon glyphicon-sort"></span></a>
+                                {% endifequal %}
+                            </th>
+                            <th></th>
+                            <th></th>
+                            {% if request.user.is_authenticated %}
+                                <th></th>
+                            {% endif %}
+                        </tr>
+                        {% for document in documents %}
+                            <tr>
+                                {% if request.user.is_authenticated %}
+                                    <td class="col-md-5">
+                                {% else %}
+                                    <td class="col-md-6">
+                                {% endif %}
+                                    <a class="title" href="{% url 'form:detail' document.id %}">{{ document.titolo }}
+                                        </a></td>
+
+                                {% if request.user.is_authenticated %}
+                                    <td class="col-md-3">
+                                {% else %}
+                                    <td class="col-md-4">
+                                {% endif %}
+                                    {{ document.pub_date }}</td>
+
+                                {% if request.user.is_authenticated %}
+                                    <td class="col-md-1"><a href="{% url 'form:detail' document.id %}">
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span> Visualizza</button></a>
+                                    </td>
+                                {% else %}
+                                    <td class="col-md-1"><a href="{% url 'form:detail' document.id %}">
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span> Compila</button></a></td>
+                                {% endif %}
+                                {% if request.user.is_authenticated %}
+                                    <td class="col-md-1"><a href="{% url 'form:edit' document.id %}">
+                                        <button type="button" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-edit"></span> Modifica</button></a></td>
+                                    <td class="col-md-1"><a href="{% url 'form:registrations' document.id %}">
+                                        <button type="button" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-user"></span> Iscrizioni</button></a></td>
+                                {% else %}
+                                    <td class="col-md-1"><a href="{% url 'form:create_pdf' document.id %}" download>
+                                        <button type="button" class="btn btn-info btn-sm"><span class="glyphicon
+                                            glyphicon-print"></span> Download PDF</button></a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>Nessun documento presente.</p>
+                {% endif %}
+
+                <nav aria-label="Page navigation" class="pagenav">
+                    <ul class="pagination">
+                        {% if documents.has_previous %}
+                            <li><a href="
+                                {% ifequal request.GET.search None %}
+                                    ?page={{ documents.previous_page_number }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                {% else %}
+                                    ?search={{ request.GET.search }}&page={{ documents.previous_page_number }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                {% endifequal %}
+                            " aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                        {% endif %}
+                        {% for n in page_list %}
+                            {% ifequal forloop.counter documents.number %}
+                                <li class="active"><a href="
+                                    {% ifequal request.GET.search None %}
+                                        ?page={{ forloop.counter }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                    {% else %}
+                                        ?search={{ request.GET.search }}&page={{ forloop.counter }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                    {% endifequal %}
+                                ">{{ forloop.counter }}</a></li>
+                            {% else %}
+                                <li><a href="
+                                    {% ifequal request.GET.search None %}
+                                        ?page={{ forloop.counter }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                    {% else %}
+                                        ?search={{ request.GET.search }}&page={{ forloop.counter }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                    {% endifequal %}
+                                ">{{ forloop.counter }}</a></li>
+                            {% endifequal %}
+                        {% endfor %}
+                        {% if documents.has_next %}
+                            <li>
+                                <a href="
+                                    {% ifequal request.GET.search None %}
+                                        ?page={{ documents.next_page_number }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                    {% else %}
+                                        ?search={{ request.GET.search }}&page={{ documents.next_page_number }}{% ifnotequal request.GET.order None %}&order={{ request.GET.order }}{% endifnotequal %}
+                                    {% endifequal %}
+                                " aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+body {
+    background-color: white !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, monospace, sans-serif !important;
+}
+
+.jumbotron {
+    background-color: #01DFA5 !important;
+}
+
+h2 {
+    border-bottom: solid !important;
+}
+
+textarea {
+    resize: none !important;
+}
+
+.container-fluid {
+    margin-bottom: 100px !important;
+}
+
+#back {
+    position: absolute !important;
+    top: 20px !important;
+}

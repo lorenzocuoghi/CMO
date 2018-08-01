@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block head %}
+        <title>Conferma di iscrizione "{{ document.titolo }}"</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top navbartop">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'form:index' %}">
+                    <b>Compilazione Moduli Online</b></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <p class="navbar-text navbar-center">Submit</p>
+                <a href="{% url 'form:index' %}"><button type="button" class="btn btn-default navbar-btn navbar-right">
+                    Torna ai documenti</button></a>
+            </div>
+        </nav>
+
+        <div class="jumbotron whitejumbo">
+            <div class="alert alert-success" role="alert">
+                <h2>Iscrizione a "{{ document.titolo }}" completata con successo.</h2>
+            </div>
+            <p>Verrai riportato alla pagina principale tra 5 secondi, altrimenti
+                <a href="{% url 'form:index' %}">clicca qui</a>.</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window.setTimeout(redirect, 5000);
+    </script>
+
+{% endblock %}>
