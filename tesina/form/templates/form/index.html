@@ -3,6 +3,20 @@
 {% endcomment %}
 {% block head %}
     <title>Compilazione Moduli Online</title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#ajaxsearch").on('keyup', function() {
+                $.ajax({
+                    type: "get",
+                    url: "{% url 'form:index' %}",
+                    data: {"search": $(this).val()},
+                    success: function(data) {
+                        $(".largejumbo").html(data);
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -26,7 +40,7 @@
                       action="{% url 'form:index' %}" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Cerca" title="" name="search"
-                               value="{{ request.GET.search }}" onkeydown="">
+                               value="{{ request.GET.search }}" id="ajaxsearch">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-success btn-md search">
                                 <span class="glyphicon glyphicon-search"></span></button>
