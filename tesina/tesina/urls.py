@@ -4,7 +4,6 @@ from django.conf.urls import include, url
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
 
 
 urlpatterns = [
@@ -14,5 +13,4 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^logout_view/$', views.logout_view, name='logout_view'),
-    url(r'^favicon\.ico$', RedirectView.as_view(url="{% static 'form/favicon.ico' %}")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

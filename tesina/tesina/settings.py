@@ -124,13 +124,13 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_RESTRICT_BY_USER = True
-CKEDITOR_RESTRICT_BY_DATE = True
+CKEDITOR_RESTRICT_BY_USER = False
+CKEDITOR_RESTRICT_BY_DATE = False
 
 CKEDITOR_CONFIGS = {
     'default': {
