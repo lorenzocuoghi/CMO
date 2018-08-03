@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% block head %}
     <title>Conferma di iscrizione "{{ document.titolo }}"</title>
+    <script type="text/javascript">
+        function countdown() {
+            var timeleft = 5;
+            var downloadTimer = setInterval(function(){
+            timeleft--;
+            document.getElementById("countdowntimer").textContent = timeleft.toString();
+            if(timeleft <= 0)
+                clearInterval(downloadTimer);
+            },1000);
+        }
+
+        $(document).ready(function() {
+            countdown();
+            window.setTimeout(redirect, 5000);
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -23,13 +39,8 @@
             <div class="alert alert-success" role="alert">
                 <h2>Iscrizione a "{{ document.titolo }}" completata con successo.</h2>
             </div>
-            <p>Verrai riportato alla pagina principale tra 5 secondi, altrimenti
-                <a href="{% url 'form:index' %}">clicca qui</a>.</p>
+            <p>Verrai riportato alla pagina principale tra <span id="countdowntimer">5</span> secondi, altrimenti
+            <a href="{% url 'form:index' %}">clicca qui</a>.</p>
         </div>
     </div>
-
-    <script type="text/javascript">
-        window.setTimeout(redirect, 5000);
-    </script>
-
 {% endblock %}>

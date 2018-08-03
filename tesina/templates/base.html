@@ -6,14 +6,15 @@
         <meta content="user-scalable=yes, initial-scale=1, minimum-scale=1, width=device-width" name="viewport"/>
         <!-- Forziamo Explorer a NON usare la modalita' compatibilita' ma la piu' recente possibile -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- CDN JavaScript JQuery -->
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         {% load static %}
             <link rel="stylesheet" type="text/css" href="{% static 'form/style.css' %}" media="all" />
             <link rel="shortcut icon" type="image/png" href="{% static 'form/favicon.ico' %}" />
             <script type="text/javascript" src="{% static 'form/script.js' %}"></script>
             <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
             <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-        <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         {% load bootstrap3 %}
             {% bootstrap_css %}
             {% bootstrap_javascript %}
