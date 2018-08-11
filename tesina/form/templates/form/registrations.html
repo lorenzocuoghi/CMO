@@ -21,27 +21,20 @@
 
         <div class="jumbotron largejumbo">
             {% if compiled_docs %}
-                <div>
-                    <form method="post">
-                        {% csrf_token %}
-                        <table><tr>
-                            <td><div class="dropdown">
-                                <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenu1"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Download
-                                        <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="{% url 'form:export_xlsx' document.id %}">Formato .xlsx</a></li>
-                                    <li><a href="{% url 'form:export_csv' document.id %}">Formato .csv</a></li>
-                                    <li><a href="{% url 'form:export_xls' document.id %}">Formato .xls</a></li>
-                                </ul>
-                            </div></td>
-                            {% if request.user.is_superuser %}
-                                <td><button type="submit" class="btn btn-danger btn-lg">Cancella tutto</button></td>
-                            {% endif %}
-                        </tr></table>
-                    </form>
-                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Download
+                                <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'form:export_xlsx' document.id %}">Formato .xlsx</a></li>
+                            <li><a href="{% url 'form:export_csv' document.id %}">Formato .csv</a></li>
+                            <li><a href="{% url 'form:export_xls' document.id %}">Formato .xls</a></li>
+                        </ul>
+                    </div>
+                </form>
 
                 <div class="reg">
                     <ul>

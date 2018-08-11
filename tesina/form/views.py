@@ -20,19 +20,22 @@ import xlwt
 
 def index(request):
     template = 'form/index.html'
+    for document in Document.objects.all():
+        if document.date is None:
+            document.delete()
     if request.method == 'GET':
         ricerca = request.GET.get('search', '')
         ordine = request.GET.get('order', '')
         if 'nameup' == ordine:
-            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('-titolo', '-pub_date')
+            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('-titolo', '-date')
         elif 'namedown' == ordine:
-            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('titolo', '-pub_date')
+            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('titolo', '-date')
         elif 'dataup' == ordine:
-            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('-pub_date', 'titolo')
+            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('-date', 'titolo')
         elif 'datadown' == ordine:
-            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('pub_date', 'titolo')
+            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('date', 'titolo')
         else:
-            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('titolo', '-pub_date')
+            documents_list = Document.objects.filter(titolo__contains=ricerca).order_by('titolo', '-date')
         paginator = Paginator(documents_list, 15, allow_empty_first_page=True)
         page = request.GET.get('page')
         documents = paginator.get_page(page)
@@ -40,16 +43,9 @@ def index(request):
         for i in range(paginator.num_pages):
             page_list.append(i)
         context = {'documents': documents, 'page_list': page_list}
+        return render(request, template, context)
     else:
-        documents_list = Document.objects.order_by('-pub_date', 'titolo')
-        paginator = Paginator(documents_list, 15, allow_empty_first_page=True)
-        page = request.GET.get('page')
-        documents = paginator.get_page(page)
-        page_list = []
-        for i in range(paginator.num_pages):
-            page_list.append(i)
-        context = {'documents': documents, 'page_list': page_list}
-    return render(request, template, context)
+        return HttpResponseRedirect(reverse('form:index'))
 
 
 def detail(request, document_id):
@@ -65,16 +61,16 @@ def detail(request, document_id):
         return HttpResponseRedirect(reverse('form:submit', args=(document_id,)))
     template = 'form/detail.html'
     namelist = []
-    create_input(document, namelist, 'textarea', 80)
-    create_input(document, namelist, 'field', 7)
-    find_input(document, namelist, 'checkbox', '<input.*?type="checkbox".*?/>')
-    find_input(document, namelist, 'radiobutton', '<input.*?type="radio".*?/>')
-    find_input(document, namelist, 'select', '<select.*?</select>')
+    create_input(document, namelist, 'textarea', 80, True)
+    create_input(document, namelist, 'field', 7, True)
+    find_input(document, namelist, 'checkbox', '<input.*?type="checkbox".*?/>', True)
+    find_input(document, namelist, 'radiobutton', '<input.*?type="radio".*?/>', True)
+    find_input(document, namelist, 'select', '<select.*?</select>', True)
     context = {'document': document}
     return render(request, template, context)
 
 
-def create_input(document, namelist, fieldtype, us):
+def create_input(document, namelist, fieldtype, us, save):
     fields_dict = {}
     name = ''
     n = 1
@@ -95,36 +91,37 @@ def create_input(document, namelist, fieldtype, us):
             n = n + 1
 
         # crea field
-        try:
-            field = Field.objects.get(document=document, name=name)
-        except ObjectDoesNotExist:
-            field = Field(document=document, name=name)
-        fields_dict[field.name] = field
-        field.save()
+        if save:
+            try:
+                field = Field.objects.get(document=document, name=name)
+            except ObjectDoesNotExist:
+                field = Field(document=document, name=name)
+            fields_dict[field.name] = field
+            field.save()
 
         if fieldtype == 'textarea':
-            document.content = re.sub(r'_{80}_*', '<textarea name="' + str(field.name) +
+            document.content = re.sub(r'_{80}_*', '<textarea name="' + str(name) +
                                       '" class="form-control" rows="5" cols="100" /></textarea>', str(document.content),
                                       1)
         else:
             if inputtype == 'testo':
-                document.content = re.sub(r'_{7}_*', '<input type="text" name="' + str(field.name) +
+                document.content = re.sub(r'_{7}_*', '<input type="text" name="' + str(name) +
                                           '" maxlength="100" class="form-control" />', str(document.content), 1)
             elif inputtype == 'obbligatorio':
-                document.content = re.sub(r'_{7}_*', '<input type="text" name="' + str(field.name) +
+                document.content = re.sub(r'_{7}_*', '<input type="text" name="' + str(name) +
                                           '" maxlength="100" class="form-control" required />', str(document.content), 1
                                           )
             elif inputtype == 'numero':
-                document.content = re.sub(r'_{7}_*', '<input type="number" name="' + str(field.name) +
+                document.content = re.sub(r'_{7}_*', '<input type="number" name="' + str(name) +
                                           '" maxlength="100" class="form-control" />', str(document.content), 1)
             elif inputtype == 'data':
-                document.content = re.sub(r'_{7}_*', '<input type="date" name="' + str(field.name) +
+                document.content = re.sub(r'_{7}_*', '<input type="date" name="' + str(name) +
                                           '" maxlength="100" class="form-control" />', str(document.content), 1)
             elif inputtype == 'email':
-                document.content = re.sub(r'_{7}_*', '<input type="email" name="' + str(field.name) +
+                document.content = re.sub(r'_{7}_*', '<input type="email" name="' + str(name) +
                                           '" maxlength="100" class="form-control" />', str(document.content), 1)
             else:
-                document.content = re.sub(r'_{7}_*', '<input type="text" name="' + str(field.name) +
+                document.content = re.sub(r'_{7}_*', '<input type="text" name="' + str(name) +
                                           '" maxlength="100" class="form-control" />', str(document.content), 1)
 
         # nuova ricerca
@@ -152,7 +149,7 @@ def findtype(match):
     return ""
 
 
-def find_input(document, namelist, typename, match):
+def find_input(document, namelist, typename, match, save):
     fields_dict = {}
     name = ''
     n = 1
@@ -170,12 +167,13 @@ def find_input(document, namelist, typename, match):
             n = n + 1
 
         # crea field
-        try:
-            field = Field.objects.get(document=document, name=name)
-        except ObjectDoesNotExist:
-            field = Field(document=document, name=name)
-        fields_dict[field.name] = field
-        field.save()
+        if save:
+            try:
+                field = Field.objects.get(document=document, name=name)
+            except ObjectDoesNotExist:
+                field = Field(document=document, name=name)
+            fields_dict[field.name] = field
+            field.save()
 
         # nuova ricerca
         new_content = re.sub(match, '', new_content, 1)
@@ -202,38 +200,30 @@ def edit(request, document_id):
         form = DocumentForm(request.POST)
         if form.is_valid():
             document.titolo = form.cleaned_data['titolo']
-            document.pub_date = datetime.datetime.now()
+            document.date = datetime.datetime.now()
             document.content = form.cleaned_data['content']
             document.save()
-            return HttpResponseRedirect(reverse('form:detail', args=(document_id,)))
-        else:
-            return HttpResponseRedirect(reverse('form:edit', args=(document_id,)))
+        return HttpResponseRedirect(reverse('form:edit', args=(document_id,)))
     else:
         form = DocumentForm(initial={'titolo': document.titolo, 'content': document.content})
-        template = 'form/edit.html'
-        context = {'document': document, 'form': form}
-        return render(request, template, context)
+        namelist = []
+        create_input(document, namelist, 'textarea', 80, False)
+        create_input(document, namelist, 'field', 7, False)
+        find_input(document, namelist, 'checkbox', '<input.*?type="checkbox".*?/>', False)
+        find_input(document, namelist, 'radiobutton', '<input.*?type="radio".*?/>', False)
+        find_input(document, namelist, 'select', '<select.*?</select>', False)
+    template = 'form/edit.html'
+    context = {'document': document, 'form': form}
+    return render(request, template, context)
 
 
 @login_required
 def new(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST)
-        document = Document()
-        document.save()
-        if form.is_valid():
-            document.titolo = form.cleaned_data['titolo']
-            document.pub_date = datetime.datetime.now()
-            document.content = form.cleaned_data['content']
-            document.save()
-            return HttpResponseRedirect(reverse('form:detail', args=(document.id,)))
-        else:
-            return HttpResponseRedirect(reverse('form:edit', args=(document.id,)))
-    else:
-        form = DocumentForm()
-        template = 'form/new.html'
-        context = {'form': form}
-        return render(request, template, context)
+    document = Document()
+    document.titolo = 'Nuovo documento'
+    document.content = ''
+    document.save()
+    return HttpResponseRedirect(reverse('form:edit', args=(document.id,)))
 
 
 def create_pdf(request, document_id):
@@ -274,12 +264,9 @@ def link_callback(uri):
 @login_required
 def registrations(request, document_id):
     document = get_object_or_404(Document, pk=document_id)
-    compiled_docs = CompiledDoc.objects.filter(document=document)
+    compiled_docs = CompiledDoc.objects.filter(document=document).order_by('date')
     template = 'form/registrations.html'
     context = {'document': document, 'compiled_docs': compiled_docs}
-    if request.method == 'POST':
-        CompiledDoc.objects.filter(document=document).delete()
-        return HttpResponseRedirect(reverse('form:registrations', args=(document_id,)))
     return render(request, template, context)
 
 

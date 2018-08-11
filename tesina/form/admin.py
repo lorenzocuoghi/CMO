@@ -10,12 +10,12 @@ class FieldInline(admin.StackedInline):
 class DocumentAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['titolo']}),
-        ('Data di pubblicazione', {'fields': ['pub_date'], 'classes': ['collapse']}),
+        ('Data di pubblicazione', {'fields': ['date'], 'classes': ['collapse']}),
         (None, {'fields': ['content']}),
     ]
     inlines = [FieldInline]
-    list_display = ('titolo', 'pub_date')
-    list_filter = ['pub_date', 'titolo']
+    list_display = ('titolo', 'date')
+    list_filter = ['date', 'titolo']
     search_fields = ['titolo']
 
 

@@ -5,7 +5,7 @@
 
 {% block body %}
     <div class="container-fluid">
-        <nav class="navbar navbar-default navbar-fixed-top  navbartop">
+        <nav class="navbar navbar-default navbar-fixed-top navbartop">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="{% url 'form:index' %}">
@@ -25,13 +25,8 @@
                 <div class="jumbotron whitejumbo">
                     {{ document.content|safe }}
                 </div>
-                {% if request.user.is_authenticated %}
-                    <a href="{% url 'form:edit' document.id %}"><button type="button" class="btn btn-warning btn-lg">
-                        <span class="glyphicon glyphicon-edit"></span> Modifica</button></a>
-                {% else %}
-                    <button type="submit" class="btn btn-success btn-lg">
-                        Invia <span class="glyphicon glyphicon-send"></span></button>
-                {% endif %}
+                <button type="submit" class="btn btn-success btn-lg">
+                    Invia <span class="glyphicon glyphicon-send"></span></button>
             </form>
         </div>
     </div>

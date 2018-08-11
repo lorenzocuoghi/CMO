@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'wp@sx%p=moybw+lxm*!5_p9!u#%s(6bna0^@%-#i+yd1tc_hs@'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -73,17 +71,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tesina.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'djangodb',
+        'HOST': 'OMEN-LOLLO\SQLEXPRESS',
+        'PORT': '',
+        'USER': 'djangoadmin',
+        'PASSWORD': 'djangopw',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -103,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -116,7 +115,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -131,31 +129,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = False
 CKEDITOR_RESTRICT_BY_DATE = False
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'height': 750,
-        'width': 960,
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['NewPage', '-', 'Print', 'Preview', '-', 'Scayt', 'Templates', 'Styles', '-',
-             'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', '-',
-             'BidiLtr', 'BidiRtl', 'Language', '-', 'Link', 'Unlink', 'Anchor', '-',
-             'Find', 'Replace', 'SelectAll'],
-            '/',
-            ['Checkbox', 'Radio', 'Select', '-', 'PageBreak', 'HorizontalRule', 'Table', 'Image', 'SpecialChar',
-             'Smiley', 'Blockquote', 'Flash', 'Iframe', '-', 'Maximize'],
-            '/',
-            ['Format', 'Font', 'FontSize', '-',
-             'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'BGColor', 'TextColor', '-',
-             'CopyFormatting', 'RemoveFormat', '-',
-             'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'Outdent', 'Indent', '-',
-             'NumberedList', 'BulletedList'],
-        ],
-        'toolbarCanCollapse': False,
-        'tabSpaces': 4,
-        'language_list': ['en:Inglese', 'fr:Francese', 'es:Spagnolo', 'de:Tedesco'],
-        'extraPlugins': ','.join([
-        ]),
-    }
-}

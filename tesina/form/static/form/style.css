@@ -145,3 +145,41 @@ th {
 #dropdownMenu1 {
     margin: 5px !important;
 }
+
+#modajax1 {
+    position: fixed !important;
+    overflow: auto !important;
+    margin: 0 !important;
+    top: 120px !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    width: 48.5% !important;
+    padding: 5px !important;
+}
+
+#modajax2 {
+    position: fixed !important;
+    overflow: auto !important;
+    margin: 0 !important;
+    top: 120px !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 48.5% !important;
+    padding: 30px !important;
+}
+
+td.mod {
+    vertical-align: top !important;
+}
+
+.nobordi {
+    border: none !important;
+}
+
+#tablemod {
+    position: fixed !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    top: 60px !important;
+    left: 20px !important;
+}

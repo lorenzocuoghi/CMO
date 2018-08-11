@@ -14,5 +14,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^logout_view/$', views.logout_view, name='logout_view'),
-    url(r'^favicon\.ico$', RedirectView.as_view(url="{% static 'form/favicon.ico' %}", permanent=True)),
+    # più corretto, ma errori su firefox
+    # url(r'^favicon\.ico$', RedirectView.as_view(url="{% static 'form/favicon.ico' %}", permanent=True)),
+    url(r'^favicon\.ico$', RedirectView.as_view(url="/favicon.ico", permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

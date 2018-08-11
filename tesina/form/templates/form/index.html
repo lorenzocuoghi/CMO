@@ -143,31 +143,11 @@
                         </tr>
                         {% for document in documents %}
                             <tr>
-                                {% if request.user.is_authenticated %}
-                                    <td class="col-md-5">
-                                {% else %}
-                                    <td class="col-md-6">
-                                {% endif %}
-                                    <a class="title" href="{% url 'form:detail' document.id %}">{{ document.titolo }}
-                                        </a></td>
+                                <td class="col-md-6"><a class="title" href="{% url 'form:detail' document.id %}">
+                                    {{ document.titolo }}</a></td>
 
-                                {% if request.user.is_authenticated %}
-                                    <td class="col-md-3">
-                                {% else %}
-                                    <td class="col-md-4">
-                                {% endif %}
-                                    {{ document.pub_date }}</td>
+                                <td class="col-md-4">{{ document.date }}</td>
 
-                                {% if request.user.is_authenticated %}
-                                    <td class="col-md-1"><a href="{% url 'form:detail' document.id %}">
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <span class="glyphicon glyphicon-eye-open"></span> Visualizza</button></a>
-                                    </td>
-                                {% else %}
-                                    <td class="col-md-1"><a href="{% url 'form:detail' document.id %}">
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <span class="glyphicon glyphicon-pencil"></span> Compila</button></a></td>
-                                {% endif %}
                                 {% if request.user.is_authenticated %}
                                     <td class="col-md-1"><a href="{% url 'form:edit' document.id %}">
                                         <button type="button" class="btn btn-warning btn-sm">
@@ -176,6 +156,9 @@
                                         <button type="button" class="btn btn-danger btn-sm">
                                             <span class="glyphicon glyphicon-user"></span> Iscrizioni</button></a></td>
                                 {% else %}
+                                    <td class="col-md-1"><a href="{% url 'form:detail' document.id %}">
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span> Compila</button></a></td>
                                     <td class="col-md-1"><a href="{% url 'form:create_pdf' document.id %}" download>
                                         <button type="button" class="btn btn-info btn-sm"><span class="glyphicon
                                             glyphicon-print"></span> Download PDF</button></a></td>

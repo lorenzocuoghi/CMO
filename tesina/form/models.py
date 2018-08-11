@@ -1,11 +1,10 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 
 class Document(models.Model):
     titolo = models.CharField(max_length=200)
-    pub_date = models.DateField('Data', null=True)
-    content = RichTextUploadingField('Contenuto')
+    date = models.DateField('Data', null=True)
+    content = models.TextField('Contenuto', default='', null=True)
 
     def __str__(self):
         return self.titolo
@@ -28,14 +27,14 @@ class Field(models.Model):
 
 
 class CompiledDoc(models.Model):
-    document = models.ForeignKey(Document, on_delete=models.CASCADE, null=True)
-    date = models.DateField(default=None, null=True)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
+    date = models.DateField('Data')
 
     def __str__(self):
         string = ''
         comp_fields = CompiledField.objects.filter(compiled_doc=self)
         for cfield in comp_fields:
-            string = string + str(cfield.field) + ': ' + str(cfield.content)
+            string = string + str(cfield.name) + ': ' + str(cfield.content)
             if comp_fields[comp_fields.count()-1] is not cfield:
                 string = string + ', '
             else:
@@ -48,7 +47,7 @@ class CompiledDoc(models.Model):
 
 
 class CompiledField(models.Model):
-    field = models.ForeignKey(Field, on_delete=models.SET_NULL, null=True)
+    field = models.ForeignKey(Field, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=30)
     compiled_doc = models.ForeignKey(CompiledDoc, on_delete=models.CASCADE)
     content = models.CharField(max_length=50)
