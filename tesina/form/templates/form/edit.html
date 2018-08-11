@@ -23,7 +23,6 @@
         }
 
         $(document).ready(function() {
-            {#$("#modajax2").find("input, button, textarea, select").attr("disabled", "disabled");#}
             if(CKEDITOR.instances['content'] !== undefined)
                 CKEDITOR.instances['content'].destroy();
             var editor = CKEDITOR.replace('content', {
@@ -100,8 +99,7 @@
 {% block body %}
     <div class="container-fluid">
 
-        <form action="{% url 'form:edit' document.id %}" method="post" class="form-inline">
-            {% csrf_token %}
+
             <nav class="navbar navbar-default navbar-fixed-top navbartop">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -111,24 +109,25 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <p class="navbar-text navbar-title">{{ document.titolo }}</p>
-                    <ul class="nav navbar-nav navbar-right">
-{#                        <button type="submit" class="btn btn-success navbar-btn">#}
-{#                            Salva <span class="glyphicon glyphicon-floppy-disk"></span></button>#}
-                        <a href="{% url 'form:index' %}"><button type="button" class="btn btn-default navbar-btn">
-                            Torna ai documenti</button></a>
-                    </ul>
+                    <a href="{% url 'form:index' %}">
+                        <button type="button" class="btn btn-default navbar-btn navbar-right">
+                            Torna ai documenti
+                        </button>
+                    </a>
                 </div>
             </nav>
 
             <table class="table" id="tablemod">
                 <tr>
-                    <td class="col-md-6 nobordi">
-                        <label for="ajaxtitle">Titolo: </label>
+                    <td class="col-md-1 nobordi"  id="titololabel">
+                        <label id="titololabel">Titolo: </label>
+                    </td>
+                    <td class="col-md-5 nobordi" id="titoloinput">
                         <input type="text" name="{{ form.titolo.name }}" class="form-control"
                                value="{{ form.titolo.value }}" id="ajaxtitle" title="" required/>
                     </td>
-                    <td class="col-md-6 nobordi">
-                        <h3>ANTEPRIMA</h3>
+                    <td class="col-md-6 nobordi" id="anteprima">
+                        <h3 id="anteprima">ANTEPRIMA</h3>
                     </td>
                 </tr>
                 <tr>
@@ -140,12 +139,14 @@
                         </div>
                     </td>
                     <td class="mod nobordi">
-                        <div class="jumbotron whitejumbo" id="modajax2">
-                            {{ document.content|safe }}
-                        </div>
+                        <form class="form-inline">
+                            <div class="jumbotron whitejumbo" id="modajax2">
+                                {{ document.content|safe }}
+                            </div>
+                        </form>
                     </td>
                 </tr>
             </table>
-        </form>
+
     </div>
 {% endblock %}
