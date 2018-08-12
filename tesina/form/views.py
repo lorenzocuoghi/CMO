@@ -39,9 +39,7 @@ def index(request):
         paginator = Paginator(documents_list, 15, allow_empty_first_page=True)
         page = request.GET.get('page')
         documents = paginator.get_page(page)
-        page_list = []
-        for i in range(paginator.num_pages):
-            page_list.append(i)
+        page_list = [i for i in range(paginator.num_pages)]
         context = {'documents': documents, 'page_list': page_list}
         return render(request, template, context)
     else:
@@ -61,17 +59,18 @@ def detail(request, document_id):
         return HttpResponseRedirect(reverse('form:submit', args=(document_id,)))
     template = 'form/detail.html'
     namelist = []
-    create_input(document, namelist, 'textarea', 80, True)
-    create_input(document, namelist, 'field', 7, True)
-    find_input(document, namelist, 'checkbox', '<input.*?type="checkbox".*?/>', True)
-    find_input(document, namelist, 'radiobutton', '<input.*?type="radio".*?/>', True)
-    find_input(document, namelist, 'select', '<select.*?</select>', True)
+    create_input(document, 'textarea', 80, namelist, True)
+    create_input(document, 'field', 7, namelist, True)
+    find_input(document, namelist, 'checkbox', '<input.*?type="checkbox".*?/>')
+    find_input(document, namelist, 'radiobutton', '<input.*?type="radio".*?/>')
+    find_input(document, namelist, 'select', '<select.*?</select>')
     context = {'document': document}
     return render(request, template, context)
 
 
-def create_input(document, namelist, fieldtype, us, save):
-    fields_dict = {}
+def create_input(document, fieldtype, us, namelist=None, save=False):
+    if namelist is None:
+        namelist = []
     name = ''
     n = 1
     field_match = re.search(r'_{' + str(us) + '}_*', str(document.content))
@@ -79,16 +78,18 @@ def create_input(document, namelist, fieldtype, us, save):
         inputtype = 'text'
 
         # Trova e/o assegna nome
-        field_index_end = field_match.end()
-        name_match = re.search(r'\[.*?\]', str(document.content)[field_index_end:])
+        name_match = re.search(r'\[.*?\]', str(document.content)[field_match.end():])
         if name_match is not None and name_match.start() == 0:
             name = findname(name_match)
             inputtype = findtype(name_match)
             document.content = re.sub(r'\[.*?\]', "", str(document.content), 1)
         if not checkname(name, namelist):
-            name = fieldtype + str(n)
-            namelist.append(name)
-            n = n + 1
+            if save is True:
+                name = fieldtype + str(n)
+                namelist.append(name)
+                n = n + 1
+            else:
+                name = fieldtype
 
         # crea field
         if save:
@@ -96,7 +97,6 @@ def create_input(document, namelist, fieldtype, us, save):
                 field = Field.objects.get(document=document, name=name)
             except ObjectDoesNotExist:
                 field = Field(document=document, name=name)
-            fields_dict[field.name] = field
             field.save()
 
         if fieldtype == 'textarea':
@@ -126,7 +126,7 @@ def create_input(document, namelist, fieldtype, us, save):
 
         # nuova ricerca
         field_match = re.search(r'_{' + str(us) + '}_*', str(document.content))
-    return fields_dict
+    return document
 
 
 def findname(match):
@@ -149,12 +149,11 @@ def findtype(match):
     return ""
 
 
-def find_input(document, namelist, typename, match, save):
-    fields_dict = {}
+def find_input(document, namelist, typename, match):
     name = ''
     n = 1
     new_content = str(document.content)
-    field_match = re.search(match, str(document.content))
+    field_match = re.search(match, new_content)
     while field_match is not None:
 
         # Trova e/o assegna nome
@@ -167,18 +166,16 @@ def find_input(document, namelist, typename, match, save):
             n = n + 1
 
         # crea field
-        if save:
-            try:
-                field = Field.objects.get(document=document, name=name)
-            except ObjectDoesNotExist:
-                field = Field(document=document, name=name)
-            fields_dict[field.name] = field
-            field.save()
+        try:
+            field = Field.objects.get(document=document, name=name)
+        except ObjectDoesNotExist:
+            field = Field(document=document, name=name)
+        field.save()
 
         # nuova ricerca
         new_content = re.sub(match, '', new_content, 1)
         field_match = re.search(match, new_content)
-    return fields_dict
+    return document
 
 
 def checkname(new_name, namelist):
@@ -187,7 +184,7 @@ def checkname(new_name, namelist):
     if not str(new_name).isalnum():
         return False
     for name in namelist:
-        if str(name) == str(new_name).lower():
+        if str(name) == str(new_name):
             return False
     namelist.append(new_name)
     return True
@@ -204,14 +201,9 @@ def edit(request, document_id):
             document.content = form.cleaned_data['content']
             document.save()
         return HttpResponseRedirect(reverse('form:edit', args=(document_id,)))
-    else:
-        form = DocumentForm(initial={'titolo': document.titolo, 'content': document.content})
-        namelist = []
-        create_input(document, namelist, 'textarea', 80, False)
-        create_input(document, namelist, 'field', 7, False)
-        find_input(document, namelist, 'checkbox', '<input.*?type="checkbox".*?/>', False)
-        find_input(document, namelist, 'radiobutton', '<input.*?type="radio".*?/>', False)
-        find_input(document, namelist, 'select', '<select.*?</select>', False)
+    form = DocumentForm(initial={'titolo': document.titolo, 'content': document.content})
+    create_input(document, 'textarea', 80)
+    create_input(document, 'field', 7)
     template = 'form/edit.html'
     context = {'document': document, 'form': form}
     return render(request, template, context)
@@ -255,9 +247,7 @@ def link_callback(uri):
     else:
         return uri
     if not os.path.isfile(path):
-        raise Exception(
-            'media URI must start with %s or %s' % (surl, murl)
-        )
+        raise Exception('media URI must start with %s or %s' % (surl, murl))
     return path
 
 

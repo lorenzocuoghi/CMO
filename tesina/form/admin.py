@@ -5,6 +5,7 @@ from .models import CompiledField, Field
 
 class FieldInline(admin.StackedInline):
     model = Field
+    extra = 0
 
 
 class DocumentAdmin(admin.ModelAdmin):
@@ -21,6 +22,7 @@ class DocumentAdmin(admin.ModelAdmin):
 
 class CompiledFieldInline(admin.StackedInline):
     model = CompiledField
+    extra = 0
 
 
 class CompiledDocAdmin(admin.ModelAdmin):
