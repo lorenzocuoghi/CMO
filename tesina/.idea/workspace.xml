@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2f4bc1d4-abc0-4aa7-87a3-7476549694e0" name="Default" comment="Live search ajax 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/form/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form/static/form/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/form/templates/form/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/form/templates/form/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form/templates/form/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/form/templates/form/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form/templates/form/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/form/templates/form/submit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/form/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/uploads/image-20180723110931-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/uploads/scheda-fine-appdf-adobe-acrobat-pro-dc.jpg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,11 +67,11 @@
     <session id="1954077585">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="57" />
+          <entry key="project.closed" value="59" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="4" />
-          <entry key="project.open.time.12" value="2" />
+          <entry key="project.open.time.12" value="3" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="2" />
           <entry key="project.open.time.15" value="1" />
@@ -85,7 +80,7 @@
           <entry key="project.open.time.7" value="11" />
           <entry key="project.open.time.8" value="5" />
           <entry key="project.open.time.9" value="9" />
-          <entry key="project.opened" value="57" />
+          <entry key="project.opened" value="59" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -96,7 +91,7 @@
           <entry key="js" value="9" />
           <entry key="php" value="2" />
           <entry key="png" value="1" />
-          <entry key="py" value="121" />
+          <entry key="py" value="123" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -106,7 +101,7 @@
           <entry key="Image" value="4" />
           <entry key="JavaScript" value="9" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="121" />
+          <entry key="Python" value="123" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -136,7 +131,29 @@
     <favorites_list name="tesina" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/form/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1377">
+              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+              <folding>
+                <element signature="e#0#54#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/form/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -233,10 +250,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="width" value="1220" />
-    <option name="height" value="1104" />
+    <option name="height" value="1105" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -290,12 +307,6 @@
             <path>
               <item name="tesina" type="b2602c69:ProjectViewProjectNode" />
               <item name="tesina" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tesina" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tesina" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -329,19 +340,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\form\static\form" />
-      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina" />
-      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\static\ckeditor\ckeditor\plugins" />
-      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\media" />
-      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\static" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\media" />
       <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\Tirocinio\tesina\form\static\form" />
       <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\Tirocinio\tesina\static" />
       <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\Tirocinio\tesina\form\static" />
       <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\Tirocinio\tesina\form" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\form\static\form" />
+      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina" />
+      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\static\ckeditor\ckeditor\plugins" />
+      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\media" />
+      <recent name="D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\static" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -613,8 +624,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49853802" visible="true" weight="0.2295302" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49853802" visible="true" weight="0.23624161" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.501462" side_tool="true" weight="0.13752665" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -824,9 +836,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/form/static/form/script.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/form/static/form/script.js" />
     <entry file="file://$PROJECT_DIR$/form/static/form/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3400">
@@ -886,23 +896,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/form/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="43" column="15" lean-forward="true" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/form/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="112" column="43" lean-forward="true" selection-start-line="112" selection-start-column="43" selection-end-line="112" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/form/tests.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -945,6 +938,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1377">
+          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
