@@ -52,9 +52,6 @@ class CompiledField(models.Model):
     compiled_doc = models.ForeignKey(CompiledDoc, on_delete=models.CASCADE)
     content = models.CharField(max_length=50)
 
-    def __str__(self):
-        return str(self.name + ": " + self.content)
-
     class Meta:
         verbose_name = 'Campo Compilato'
         verbose_name_plural = 'Campi Compilati'
