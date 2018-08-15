@@ -19,7 +19,7 @@ class Field(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.name)
+        return self.name
 
     class Meta:
         verbose_name = 'Campo'
