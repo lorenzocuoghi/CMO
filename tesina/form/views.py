@@ -39,7 +39,7 @@ def index(request):
         paginator = Paginator(documents_list, 15, allow_empty_first_page=True)
         page = request.GET.get('page')
         documents = paginator.get_page(page)
-        page_list = [i for i in range(paginator.num_pages)]
+        page_list = [i for i in range(1, paginator.num_pages + 1)]
         context = {'documents': documents, 'page_list': page_list}
         return render(request, template, context)
     else:
