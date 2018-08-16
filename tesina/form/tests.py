@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from .models import Document
+from .views import create_input
 import datetime
 
 
@@ -29,7 +30,7 @@ class IndexViewTest(TestCase):
         """
         From 0 to 15 documents --> 1 page
         """
-        documents = create_document(5)
+        documents = create_document(8)
         response = self.client.get(reverse('form:index'))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['documents'], documents)
@@ -148,3 +149,98 @@ class IndexViewTest(TestCase):
         self.assertQuerysetEqual(response.context['documents'], ['<Document: C>',
                                                                  '<Document: b>',
                                                                  '<Document: A>'])
+
+    def test_index_view_search(self):
+        Document.objects.create(titolo="C", date=datetime.datetime.now())
+        Document.objects.create(titolo="A", date=datetime.datetime.now())
+        Document.objects.create(titolo="b", date=datetime.datetime.now())
+        response = self.client.get('/form/?search=a')
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['documents'], ['<Document: A>'])
+
+    def test_index_view_search_nothing(self):
+        Document.objects.create(titolo="C", date=datetime.datetime.now())
+        Document.objects.create(titolo="A", date=datetime.datetime.now())
+        Document.objects.create(titolo="b", date=datetime.datetime.now())
+        response = self.client.get('/form/?search=')
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['documents'], ['<Document: A>',
+                                                                 '<Document: b>',
+                                                                 '<Document: C>'])
+
+    def test_index_view_search_no_results(self):
+        Document.objects.create(titolo="C", date=datetime.datetime.now())
+        Document.objects.create(titolo="A", date=datetime.datetime.now())
+        Document.objects.create(titolo="b", date=datetime.datetime.now())
+        response = self.client.get('/form/?search=d')
+        self.assertContains(response, "Nessun documento presente.")
+        self.assertQuerysetEqual(response.context['documents'], [])
+
+    def test_index_view_datanone_delete(self):
+        Document.objects.create(titolo="C")
+        response = self.client.get(reverse('form:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Nessun documento presente.")
+        self.assertQuerysetEqual(response.context['documents'], [])
+
+
+class CreateInputTest(TestCase):
+    # namelist
+    # save
+
+    def test_empty_doc(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document = create_input(document, 'field', 7, [], True)
+        self.assertEqual(document.content, "")
+
+    def test_field(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document.content = "prova _________ prova"
+        document = create_input(document, 'field', 7, [], True)
+        self.assertEqual(document.content,
+                         'prova <input type="text" name="field1" maxlength="100" class="form-control" /> prova')
+
+    def test_textarea(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document.content = \
+            "prova __________________________________________________________________________________________ prova"
+        document = create_input(document, 'textarea', 80, [], True)
+        self.assertEqual(document.content,
+                         'prova <textarea name="textarea1" class="form-control" rows="5" cols="100" /></textarea> prova'
+                         )
+
+    def test_numero(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document.content = "prova _________[,numero] prova"
+        document = create_input(document, 'field', 7, [], True)
+        self.assertEqual(document.content,
+                         'prova <input type="number" name="field1" maxlength="100" class="form-control" /> prova')
+
+    def test_testo(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document.content = "prova _________[,testo] prova"
+        document = create_input(document, 'field', 7, [], True)
+        self.assertEqual(document.content,
+                         'prova <input type="text" name="field1" maxlength="100" class="form-control" /> prova')
+
+    def test_obbligatorio(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document.content = "prova _________[,obbligatorio] prova"
+        document = create_input(document, 'field', 7, [], True)
+        self.assertEqual(document.content,
+                         'prova <input type="text" name="field1" maxlength="100" class="form-control" required /> prova'
+                         )
+
+    def test_data(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document.content = "prova _________[,data] prova"
+        document = create_input(document, 'field', 7, [], True)
+        self.assertEqual(document.content,
+                         'prova <input type="date" name="field1" maxlength="100" class="form-control" /> prova')
+
+    def test_email(self):
+        document = Document.objects.create(titolo="Test", date=datetime.datetime.now())
+        document.content = "prova _________[,email] prova"
+        document = create_input(document, 'field', 7, [], True)
+        self.assertEqual(document.content,
+                         'prova <input type="email" name="field1" maxlength="100" class="form-control" /> prova')
