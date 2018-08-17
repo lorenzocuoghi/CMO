@@ -1,4 +1,4 @@
-#!D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\Tirocinio\tesina\venv\Scripts\python.exe
+#!D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\CMO\tesina\venv\Scripts\python.exe
 
 ##############################################################################
 #
