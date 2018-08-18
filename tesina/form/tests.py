@@ -17,10 +17,6 @@ def create_document(n):
 
 class IndexViewTest(TestCase):
     def test_index_view_with_no_documents(self):
-        """
-        No documents --> "Nessun documento presente."
-        message should be displayed.
-        """
         response = self.client.get(reverse('form:index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Nessun documento presente.")
