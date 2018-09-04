@@ -4,7 +4,7 @@
 
 1. Scaricare e scompattare il pacchetto
 
-2. Apripre il progetto "tesina" con PyCharm
+2. Aprire il progetto "tesina" con PyCharm
 
 3. File->Settings...->Project: tesina->Project Interpreter->simbolo ingranaggio->Add...->Existing environment->OK
 
