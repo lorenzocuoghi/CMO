@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f4bc1d4-abc0-4aa7-87a3-7476549694e0" name="Default" comment="test update" />
+    <list default="true" id="2f4bc1d4-abc0-4aa7-87a3-7476549694e0" name="Default" comment="test update">
+      <change beforePath="$PROJECT_DIR$/../Relazione Progetto.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../Relazione Progetto.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,9 +67,9 @@
     <session id="1954077585">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="89" />
+          <entry key="project.closed" value="92" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.10" value="2" />
+          <entry key="project.open.time.10" value="3" />
           <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.1117" value="1" />
           <entry key="project.open.time.12" value="4" />
@@ -77,11 +80,11 @@
           <entry key="project.open.time.17" value="4" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.5" value="4" />
-          <entry key="project.open.time.6" value="21" />
-          <entry key="project.open.time.7" value="14" />
+          <entry key="project.open.time.6" value="22" />
+          <entry key="project.open.time.7" value="15" />
           <entry key="project.open.time.8" value="8" />
           <entry key="project.open.time.9" value="11" />
-          <entry key="project.opened" value="89" />
+          <entry key="project.opened" value="92" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -132,7 +135,7 @@
     <favorites_list name="tesina" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -231,9 +234,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="width" value="630" />
-    <option name="height" value="669" />
+    <option name="x" value="-8" />
+    <option name="width" value="504" />
+    <option name="height" value="536" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -241,6 +244,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -308,7 +312,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -642,14 +645,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49853802" visible="true" weight="0.16778524" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49853802" visible="true" weight="0.1369936" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.501462" side_tool="true" weight="0.13752665" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49626866" weight="0.26912183" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49626866" weight="0.20585048" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.30028328" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -657,7 +660,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3286119" />
       <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49731544" weight="0.33002833" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3427762" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3427762" />
       <window_info anchor="bottom" id="manage.py@mysite" order="11" weight="0.32930845" />
       <window_info anchor="bottom" id="manage.py@tesina" order="12" weight="0.44050992" />
       <window_info anchor="bottom" id="Database Changes" order="13" weight="0.3286119" />
@@ -957,13 +960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/form/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="174" selection-start-line="174" selection-end-line="175" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/form/templates/form/edit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-17">
@@ -982,6 +978,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="174" selection-start-line="174" selection-end-line="175" />
         </state>
       </provider>
     </entry>
