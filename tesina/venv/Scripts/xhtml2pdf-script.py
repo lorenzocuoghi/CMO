@@ -1,6 +1,6 @@
-#!"D:\lollo\Google Drive\Università\Terzo anno\Secondo semestre\Tirocinio\tesina\venv\Scripts\python.exe"
-# EASY-INSTALL-ENTRY-SCRIPT: 'xhtml2pdf==0.2.2','console_scripts','xhtml2pdf'
-__requires__ = 'xhtml2pdf==0.2.2'
+#!"D:\lollo\Università\Triennale\Terzo anno\Secondo semestre\CMO\tesina\venv\Scripts\python.exe"
+# EASY-INSTALL-ENTRY-SCRIPT: 'xhtml2pdf==0.2.3','console_scripts','xhtml2pdf'
+__requires__ = 'xhtml2pdf==0.2.3'
 import re
 import sys
 from pkg_resources import load_entry_point
@@ -8,5 +8,5 @@ from pkg_resources import load_entry_point
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
     sys.exit(
-        load_entry_point('xhtml2pdf==0.2.2', 'console_scripts', 'xhtml2pdf')()
+        load_entry_point('xhtml2pdf==0.2.3', 'console_scripts', 'xhtml2pdf')()
     )
