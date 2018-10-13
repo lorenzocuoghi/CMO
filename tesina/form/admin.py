@@ -29,7 +29,7 @@ class CompiledDocAdmin(admin.ModelAdmin):
     inlines = [CompiledFieldInline]
     list_display = ('document', 'date')
     list_filter = ['document']
-    search_fields = ['document']
+    search_fields = ['document__titolo']
 
 
 admin.site.register(models.Document, DocumentAdmin)
